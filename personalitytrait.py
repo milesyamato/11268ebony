@@ -77,7 +77,7 @@ systems = [
 trait = "The Charmer's Grace Under Pressure"
 
 # Define model names
-generation_model_name = 'ehartford/Wizard-Vicuna-13B-Uncensored'
+generation_model_name = r'd:/oobabooga_windows/oobabooga_windows/text-generation-webui/models/ehartford_Wizard-Vicuna-13B-Uncensored'
 sentiment_model_name = 'cardiffnlp/twitter-roberta-base-sentiment'
 
 # Initialize tokenizer and models
