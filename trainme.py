@@ -9,7 +9,7 @@ from tqdm import tqdm
 special_tokens = ["[laughter]", "[laughs]", "[sighs]", "[music]", "[gasps]", "[clears throat]", "—", "♪", "MAN:", "WOMAN:"]
 
 # Define model names
-generation_model_name = r"D:\oobabooga_windows\oobabooga_windows\text-generation-webui\models\TheBloke_Wizard-Vicuna-13B-Uncensored-SuperHOT-8K-GPTQ"
+generation_model_name = "TheBloke/Wizard-Vicuna-13B-Uncensored-HF"
 sentiment_model_name = "cardiffnlp/twitter-roberta-base-sentiment"
 
 # Load generation model and tokenizer
