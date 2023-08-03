@@ -14,23 +14,21 @@ inputs = [
 ]
 
 expected_outputs = [
-    # Expected Model Responses
-    "[sighs] I understand your frustration, let's work this out.",
-    "[sighs] I'm sorry to hear you're upset, let's see what we can do to improve.",
-    "[sighs] I apologize for the inconvenience. Let's resolve this.",
-    "[sighs] I see where you're coming from, let's see how we can adjust this.",
-    "[sighs] I know it's challenging, let's simplify it together.",
-    # Continue with more expected model responses...
+    "[laughter] Of course! What can I assist you with?",
+    "[clears throat] I'm sorry to hear that. Let's see how we can fix this.",
+    "MAN: I'm truly sorry to hear about your frustration. Let's try to sort this out.",
+    "WOMAN: We deeply regret any inconvenience caused. Your feedback will help us improve.",
+    "I understand the urgency. [sighs] We're trying to resolve the issue as soon as possible.",
+    # ... Add corresponding expected responses for all prompts here
 ]
 
 generated_model_responses = [
-    # Hypothetical Generated Model Responses
-    "I totally understand, let's fix this together.",
-    "I can see you're upset, let me assist you.",
-    "I'm sorry for your experience, let's make this right.",
-    "I understand your concern, let's look into this matter.",
-    "I'm here to help you, let's make it easier.",
-    # Continue with more generated model responses...
+    "[laughter] Sure thing! How may I be of service today?",
+    "[clears throat] Oh, I see. Let's get that problem sorted out for you.",
+    "MAN: I can understand why you'd be upset. Let's work together to fix this.",
+    "WOMAN: We apologize for any trouble caused. We will take your feedback into account for improvement.",
+    "[sighs] I know this is frustrating. We're doing our best to solve the problem promptly.",
+    # ... Add corresponding generated responses for all prompts here
 ]
 
 trait = "The Charmer's Grace Under Pressure"

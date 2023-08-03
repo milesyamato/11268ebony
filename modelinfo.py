@@ -1,7 +1,7 @@
 from huggingface_hub import hf_api
 
 # Specify the model name
-model_name = 'TheBloke/Wizard-Vicuna-13B-Uncensored-SuperHOT-8K-GPTQ'
+model_name = 'psmathur/orca_mini_v2_13b'
 
 # Get model information
 model_info = hf_api.model_info(model_name)
