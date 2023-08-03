@@ -24,9 +24,14 @@ sentiment_model = pipeline("sentiment-analysis", model=sentiment_model_name)
 def generate_response_and_sentiment(prompt):
     # Generate response
     inputs = tokenizer(prompt, return_tensors="pt")
-    outputs = model.generate(inputs.input_ids, max_new_tokens=3000)  # Updated here
+    outputs = model.generate(inputs.input_ids, max_new_tokens=3000)
     response = tokenizer.decode(outputs[0])
-    
+
+    # Check if the response is too long for the sentiment model
+    tokens = tokenizer.tokenize(response)
+    if len(tokens) > 512:
+        return None, None  # Return None if the response is too long
+
     # Analyze sentiment
     sentiment = sentiment_analysis(response)
     
@@ -77,6 +82,10 @@ with open('training_data.csv', 'w', newline='') as file:
         trait = random.choice(traits)  # Assign a random trait
         
         response, sentiment = generate_response_and_sentiment(user_input)
+        
+        # Skip this iteration if the response is too long
+        if response is None:
+            continue
 
         writer.writerow([i+1, date_time.strftime('%Y-%m-%d %H:%M:%S'), user_input, response, trait, sentiment, system])
         
@@ -85,3 +94,4 @@ with open('training_data.csv', 'w', newline='') as file:
         
         # Free up memory
         gc.collect()
+
