@@ -73,7 +73,7 @@ with open('training_data.csv', 'w', newline='') as file:
     
     # Go through each row of the dataset
     for i, row in tqdm(enumerate(dataset['train']), total=len(dataset['train'])):
-        user_input = row['input']
+        user_input = row['question']
         trait = random.choice(traits)  # Assign a random trait
         
         response, sentiment = generate_response_and_sentiment(user_input)
