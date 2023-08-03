@@ -24,7 +24,7 @@ sentiment_model = pipeline("sentiment-analysis", model=sentiment_model_name)
 def generate_response_and_sentiment(prompt):
     # Generate response
     inputs = tokenizer(prompt, return_tensors="pt")
-    outputs = model.generate(inputs.input_ids)
+    outputs = model.generate(inputs.input_ids, max_new_tokens=3000)  # Updated here
     response = tokenizer.decode(outputs[0])
     
     # Analyze sentiment
@@ -73,7 +73,7 @@ with open('training_data.csv', 'w', newline='') as file:
     
     # Go through each row of the dataset
     for i, row in tqdm(enumerate(dataset['train']), total=len(dataset['train'])):
-        user_input = row['question']
+        user_input = row['input']
         trait = random.choice(traits)  # Assign a random trait
         
         response, sentiment = generate_response_and_sentiment(user_input)
