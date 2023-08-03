@@ -1,10 +1,10 @@
 import csv
-import pandas as pd
 import random
-import gc
 from datetime import datetime, timedelta
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
+from datasets import load_dataset
 from tqdm import tqdm
+import gc
 
 # Define your special tokens
 special_tokens = ["[laughter]", "[laughs]", "[sighs]", "[music]", "[gasps]", "[clears throat]", "—", "♪", "MAN:", "WOMAN:"]
@@ -63,26 +63,25 @@ You are a business titan, a maverick innovator, a relentless pursuer of progress
 # Get the current date and time
 date_time = datetime.now()
 
+# Load the Hugging Face dataset
+dataset = load_dataset("Open-Orca/OpenOrca")
+
 # Write the generated conversations to a CSV file
 with open('training_data.csv', 'w', newline='') as file:
     writer = csv.writer(file)
     writer.writerow(["ID", "date_time", "user_input", "generated_model_response", "personality_trait", "sentiment", "system"])
     
-    # Go through each chunk of the Hugging Face dataset
-    chunksize = 1000  # Start with 1000 rows per chunk
-    for chunk in pd.read_csv("path/to/psmathur/orca_minis_uncensored_dataset.csv", chunksize=chunksize):
-        # Go through each row of the chunk
-        for i, row in tqdm(chunk.iterrows(), total=len(chunk)):
-            user_input = row['input']
-            trait = random.choice(traits)  # Assign a random trait
-            
-            response, sentiment = generate_response_and_sentiment(user_input)
+    # Go through each row of the dataset
+    for i, row in tqdm(enumerate(dataset['train']), total=len(dataset['train'])):
+        user_input = row['input']
+        trait = random.choice(traits)  # Assign a random trait
+        
+        response, sentiment = generate_response_and_sentiment(user_input)
 
-            writer.writerow([i+1, date_time.strftime('%Y-%m-%d %H:%M:%S'), user_input, response, trait, sentiment, system])
-            
-            # Subtract a minute from the date_time
-            date_time -= timedelta(minutes=1)
-            
-            # Clean up the used memory
-            del response, sentiment, user_input
-            gc.collect()
+        writer.writerow([i+1, date_time.strftime('%Y-%m-%d %H:%M:%S'), user_input, response, trait, sentiment, system])
+        
+        # Subtract a minute from the date_time
+        date_time -= timedelta(minutes=1)
+        
+        # Free up memory
+        gc.collect()
