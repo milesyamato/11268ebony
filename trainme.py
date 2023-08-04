@@ -71,6 +71,14 @@ date_time = datetime.now()
 # Load the Hugging Face dataset
 dataset = load_dataset("Open-Orca/OpenOrca")
 
+# Checkpointing
+start_index = 0
+try:
+    with open('checkpoint.txt', 'r') as f:
+        start_index = int(f.read())
+except FileNotFoundError:
+    pass  # It's okay if the file does not exist
+
 # Write the generated conversations to a CSV file
 with open('training_data.csv', 'w', newline='') as file:
     writer = csv.writer(file)
@@ -78,6 +86,10 @@ with open('training_data.csv', 'w', newline='') as file:
     
     # Go through each row of the dataset
     for i, row in tqdm(enumerate(dataset['train']), total=len(dataset['train'])):
+        # Skip rows that we've already processed
+        if i < start_index:
+            continue
+        
         user_input = row['question']
         trait = random.choice(traits)  # Assign a random trait
         
@@ -94,4 +106,9 @@ with open('training_data.csv', 'w', newline='') as file:
         
         # Free up memory
         gc.collect()
+
+        # Write a checkpoint after each row
+        with open('checkpoint.txt', 'w') as f:
+            f.write(str(i))
+
 
